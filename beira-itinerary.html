@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monteverde & Marquês Tour of Beira</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --night: #1C2333;
+    --parchment: #F2EBD9;
+    --parchment-dark: #E8DEC8;
+    --stone: #C4A882;
+    --tile-blue: #2E6B8A;
+    --olive: #6B7C4A;
+    --rust: #9E4E2C;
+    --text-dark: #2A1F14;
+    --text-mid: #5C4A35;
+    --text-light: #8C7A65;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--parchment);
+    color: var(--text-dark);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--night);
+    color: var(--parchment);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 60px 24px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(46,107,138,0.28) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(107,124,74,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 80%, rgba(196,168,130,0.18) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-weight: 300; font-size: 0.78rem; letter-spacing: 0.38em;
+    text-transform: uppercase; color: var(--stone); margin-bottom: 26px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6.5vw, 5.6rem);
+    font-weight: 900; line-height: 1.07; color: var(--parchment);
+    max-width: 860px;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--stone); }
+  .hero-subtitle {
+    font-weight: 300; font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(242,235,217,0.68); max-width: 580px; margin-top: 26px;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .hero-details {
+    display: flex; gap: 36px; margin-top: 52px;
+    flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeUp 0.8s 1.1s forwards;
+  }
+  .hero-detail { text-align: center; }
+  .hero-detail-num {
+    font-family: 'Playfair Display', serif; font-size: 2.4rem;
+    font-weight: 700; color: var(--stone); line-height: 1;
+  }
+  .hero-detail-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(242,235,217,0.42); margin-top: 4px;
+  }
+  .hero-divider { width: 1px; height: 56px; background: rgba(196,168,130,0.22); align-self: center; }
+  .scroll-cue {
+    position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 0.8s 1.5s forwards;
+  }
+  .scroll-cue span { font-size: 0.67rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(242,235,217,0.32); }
+  .scroll-arrow {
+    width: 17px; height: 17px;
+    border-right: 1px solid rgba(196,168,130,0.42);
+    border-bottom: 1px solid rgba(196,168,130,0.42);
+    transform: rotate(45deg); animation: bounce 1.8s infinite;
+  }
+
+  /* ── NAV ── */
+  .day-nav {
+    position: sticky; top: 0; z-index: 100; background: var(--night);
+    display: flex; justify-content: center;
+    border-bottom: 1px solid rgba(196,168,130,0.13);
+  }
+  .day-nav a {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(242,235,217,0.42); padding: 14px 22px; text-decoration: none;
+    border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
+  }
+  .day-nav a:hover { color: var(--stone); border-bottom-color: var(--stone); }
+
+  /* ── INTRO ── */
+  .intro-section { max-width: 760px; margin: 80px auto; padding: 0 24px; text-align: center; }
+  .intro-section .pullquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.05rem, 2vw, 1.3rem); font-style: italic;
+    color: var(--text-mid); line-height: 1.8;
+  }
+  .intro-section .body-text { font-size: 1rem; color: var(--text-light); margin-top: 16px; line-height: 1.8; }
+  .ornament { font-size: 1.8rem; color: var(--stone); margin: 28px 0; letter-spacing: 0.5em; opacity: 0.38; }
+
+  /* ── DAY SECTIONS ── */
+  .day-section { margin-bottom: 100px; }
+
+  .day-header {
+    background: var(--night); color: var(--parchment);
+    padding: 70px 40px 58px; text-align: center; position: relative; overflow: hidden;
+  }
+  .day-header::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--stone), transparent);
+  }
+  .day-label { font-size: 0.69rem; font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase; color: var(--stone); margin-bottom: 16px; }
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 5vw, 3.6rem); font-weight: 900; line-height: 1.1;
+    color: var(--parchment); max-width: 680px; margin: 0 auto 16px;
+  }
+  .day-title em { font-style: italic; color: var(--stone); }
+  .day-tagline {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(0.95rem, 1.8vw, 1.13rem);
+    color: rgba(242,235,217,0.58); max-width: 560px; margin: 0 auto;
+  }
+  .day-route-bar {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; flex-wrap: wrap; margin-top: 28px; padding-top: 26px;
+    border-top: 1px solid rgba(196,168,130,0.11);
+  }
+  .route-stop { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,235,217,0.62); }
+  .route-arrow { color: var(--stone); font-size: 0.85rem; opacity: 0.52; }
+
+  /* ── STOPS ── */
+  .stops-container { max-width: 900px; margin: 0 auto; padding: 50px 24px 0; }
+
+  .stop {
+    display: grid; grid-template-columns: 76px 1fr;
+    gap: 0 26px; margin-bottom: 52px; position: relative;
+  }
+  .stop::before {
+    content: ''; position: absolute; left: 37px; top: 50px; bottom: -52px;
+    width: 1px; background: linear-gradient(to bottom, var(--stone), transparent); opacity: 0.22;
+  }
+  .stop:last-child::before { display: none; }
+
+  .stop-time-col { text-align: right; padding-top: 4px; }
+  .stop-time { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); white-space: nowrap; }
+  .stop-dot {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--stone); border: 2px solid var(--parchment);
+    box-shadow: 0 0 0 2px var(--stone); margin: 7px auto 0; display: block;
+  }
+
+  .stop-content {
+    background: white; overflow: hidden;
+    box-shadow: 0 2px 18px rgba(44,31,20,0.09); border-left: 3px solid var(--stone);
+  }
+
+  /* ── PHOTO PLACEHOLDER ── */
+  .photo-placeholder {
+    width: 100%; height: 210px;
+    background: var(--parchment-dark);
+    border-bottom: 1px solid rgba(196,168,130,0.25);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px;
+    color: var(--text-light);
+  }
+  .photo-placeholder-icon { font-size: 2rem; opacity: 0.4; }
+  .photo-placeholder-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; opacity: 0.55;
+  }
+  /* To replace a placeholder with a real photo:
+     Change the .photo-placeholder div to:
+     <img src="YOUR_IMAGE_URL" alt="Description" style="width:100%;height:210px;object-fit:cover;display:block;">
+  */
+
+  .stop-body { padding: 22px 26px 20px; }
+  .stop-name { font-family: 'Playfair Display', serif; font-size: 1.42rem; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
+  .stop-type { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tile-blue); margin-bottom: 13px; }
+  .stop-description { font-size: 0.94rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 13px; }
+  .stop-tips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tip-tag { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .tip-tag.teens { background: rgba(107,124,74,0.12); color: var(--olive); }
+  .tip-tag.seniors { background: rgba(46,107,138,0.1); color: var(--tile-blue); }
+  .tip-tag.practical { background: rgba(196,168,130,0.2); color: var(--text-mid); }
+  .tip-tag.food { background: rgba(158,78,44,0.1); color: var(--rust); }
+  .tip-tag.free { background: rgba(107,124,74,0.15); color: var(--olive); }
+
+  /* ── OVERNIGHT ── */
+  .overnight-card {
+    background: var(--night); color: var(--parchment);
+    max-width: 900px; margin: 0 auto;
+    padding: 34px 38px 34px 48px;
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 20px; align-items: start; border-left: 4px solid var(--stone);
+  }
+  .overnight-moon { font-size: 2rem; line-height: 1; padding-top: 2px; }
+  .overnight-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); margin-bottom: 7px; }
+  .overnight-name { font-family: 'Playfair Display', serif; font-size: 1.48rem; font-weight: 700; margin-bottom: 9px; }
+  .overnight-desc { font-size: 0.89rem; color: rgba(242,235,217,0.7); line-height: 1.7; margin-bottom: 8px; }
+  .overnight-alt { font-size: 0.79rem; color: rgba(242,235,217,0.38); font-style: italic; }
+
+  /* ── PRACTICAL ── */
+  .practical-panel { background: var(--parchment-dark); border-top: 2px solid rgba(196,168,130,0.22); padding: 56px 24px; }
+  .practical-inner { max-width: 900px; margin: 0 auto; }
+  .practical-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--night); margin-bottom: 30px; text-align: center; }
+  .practical-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 20px; }
+  .practical-card { background: white; padding: 24px; box-shadow: 0 1px 8px rgba(44,31,20,0.06); }
+  .practical-card-icon { font-size: 1.45rem; margin-bottom: 9px; }
+  .practical-card-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+  .practical-card p, .practical-card li { font-size: 0.85rem; color: var(--text-mid); line-height: 1.7; }
+  .practical-card ul { padding-left: 14px; }
+  .practical-card li { margin-bottom: 4px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--night); color: rgba(242,235,217,0.32); text-align: center; padding: 42px 24px; font-size: 0.77rem; letter-spacing: 0.1em; }
+  footer strong { color: var(--stone); font-weight: 400; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes bounce { 0%,100% { transform:rotate(45deg) translateY(0); } 50% { transform:rotate(45deg) translateY(5px); } }
+
+  @media (max-width:620px) {
+    .stop { grid-template-columns: 56px 1fr; gap: 0 13px; }
+    .stop::before { left: 27px; }
+    .stop-body { padding: 16px; }
+    .day-header { padding: 50px 18px 42px; }
+    .overnight-card { padding: 22px 18px; grid-template-columns: 1fr; gap: 10px; }
+    .hero-divider { display: none; }
+    .day-nav a { padding: 12px 11px; font-size: 0.63rem; }
+    .photo-placeholder { height: 160px; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    *,*::before,*::after { animation:none !important; transition:none !important; }
+    .hero-eyebrow,.hero-title,.hero-subtitle,.hero-details,.scroll-cue { opacity:1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Beira Alta &amp; Beira Baixa &nbsp;·&nbsp; Portugal &nbsp;·&nbsp; July 2026</p>
+  <h1 class="hero-title">Monteverde &amp; Marquês<br><em>Tour of Beira</em></h1>
+  <p class="hero-subtitle">Medieval fortress towns, glacial mountain valleys, and ancient villages that feel untouched by time — all within the historic heart of Portugal.</p>
+  <div class="hero-details">
+    <div class="hero-detail"><div class="hero-detail-num">3</div><div class="hero-detail-label">Days</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-detail"><div class="hero-detail-num">9</div><div class="hero-detail-label">Stops</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-detail"><div class="hero-detail-num">2</div><div class="hero-detail-label">Nights</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-detail"><div class="hero-detail-num">1993<span style="font-size:1.1rem">m</span></div><div class="hero-detail-label">Highest Point</div></div>
+  </div>
+</section>
+
+<!-- STICKY NAV -->
+<nav class="day-nav">
+  <a href="#intro">Overview</a>
+  <a href="#day1">Day 1</a>
+  <a href="#day2">Day 2</a>
+  <a href="#day3">Day 3</a>
+  <a href="#practical">Practical</a>
+</nav>
+
+<!-- INTRO -->
+<section class="intro-section" id="intro">
+  <p class="pullquote">"The Beiras are the Portugal that Portugal forgot to advertise — and that is precisely the point."</p>
+  <div class="ornament">· · ·</div>
+  <p class="body-text">This is interior Portugal at its most authentic: granite villages where people still live as their grandparents did, fortress towns built to guard a kingdom's borders, and mountain landscapes that feel like the edge of the world. No beaches, no tourist crowds. Just stone, history, and extraordinary food.</p>
+  <p class="body-text" style="margin-top:14px;">This three-day loop starts and ends in Penalva do Castelo, covering the very best of Beira Alta and Beira Baixa — designed to be unhurried, flexible, and rich in the kind of moments that make travel unforgettable.</p>
+</section>
+
+<!-- ══ DAY 1 ══ -->
+<section class="day-section" id="day1">
+  <div class="day-header">
+    <div class="day-label">Day One</div>
+    <h2 class="day-title">Into the <em>Mountains</em></h2>
+    <p class="day-tagline">A full, unhurried day in Portugal's highest mountain range — glacial valleys, wildflower plateaus, and a summit with views across two provinces.</p>
+    <div class="day-route-bar">
+      <span class="route-stop">Zêzere Valley</span><span class="route-arrow">→</span>
+      <span class="route-stop">Covão d'Ametade</span><span class="route-arrow">→</span>
+      <span class="route-stop">Torre Summit</span><span class="route-arrow">→</span>
+      <span class="route-stop">Belmonte</span>
+    </div>
+  </div>
+
+  <div class="stops-container">
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">9:00 am</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/2c/28/d6/photo3jpg.jpg" alt="Glacial Valley of Zêzere, Serra da Estrela" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Glacial Valley of Zêzere</div>
+          <div class="stop-type">Natural Landmark · Serra da Estrela · ★ 4.8</div>
+          <p class="stop-description">Start here, and start early. The Zêzere glacial valley is the most dramatic landscape in all of Serra da Estrela — a classic U-shaped valley carved by ice over thousands of years, its flanks draped in wildflowers throughout July. The drive down from the high plateau toward the town of Manteigas is one of the great scenic roads in Portugal: pull over often. There's a well-marked hiking trail along the valley floor, and the river is cold and clear enough for a swim.</p>
+          <div class="stop-tips">
+            <span class="tip-tag teens">🏃 Teens: hike the valley trail or swim</span>
+            <span class="tip-tag seniors">🚗 Fully enjoyable from the car</span>
+            <span class="tip-tag practical">⏱ Allow 90 min</span>
+            <span class="tip-tag free">Free entry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">11:00 am</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://visitmanteigas.pt/wp-content/uploads/2020/07/Covao-dAmetade-01-Foto-Ricardo-Costa-1030x687.jpg" alt="Covão d'Ametade glacial lagoon, Serra da Estrela" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Covão d'Ametade</div>
+          <div class="stop-type">Glacial Lagoon · Serra da Estrela · ★ 4.7 (4,100+ reviews)</div>
+          <p class="stop-description">A short drive from the valley, Covão d'Ametade is a glacial lagoon tucked between granite cliffs and ancient pine forest — one of those places that seems too beautiful to be real. The water is an eerie, luminous green. Short walking paths ring the lagoon, making it an ideal picnic spot. Note: the access road from Manteigas is single-lane with traffic control stops in summer — budget an extra 30 minutes.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">⏱ Allow 75 min</span>
+            <span class="tip-tag practical">🅿️ Parking fills fast — arrive early</span>
+            <span class="tip-tag free">Free entry</span>
+            <span class="tip-tag food">🧺 Bring a picnic — no facilities on site</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">1:00 pm</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://img.atlasobscura.com/ds65WYlv887OG3Q9gNVDoS5R4eGGJXeYwG7nhy8KkLI/rt:fit/h:400/q:81/sm:1/scp:1/ar:1/aHR0cHM6Ly9hdGxh/cy1kZXYuczMuYW1h/em9uYXdzLmNvbS91/cGxvYWRzL3BsYWNl/X2ltYWdlcy85MGRh/OGY3My1lZjY3LTQ1/MmUtOGVlMC01OWI2/N2FkMTI2ODI0MGUx/Nzc3ZWZkYjI4NjIy/NzhfUDEwODAyODAu/SlBH.webp" alt="Torre summit, Serra da Estrela" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Torre — The Summit</div>
+          <div class="stop-type">Highest Point in Portugal · 1,993m</div>
+          <p class="stop-description">Drive the N339 all the way to the top of Torre, Portugal's highest point. Even in July, bring a layer — it's noticeably cooler up here. On a clear day you can see deep into Spain to the east and toward the Atlantic haze in the west. There's a small cluster of cafés at the summit — a good moment for lunch before descending toward Belmonte.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">🧥 Bring a layer — cooler at altitude</span>
+            <span class="tip-tag food">🍽️ Lunch at summit café</span>
+            <span class="tip-tag teens">📸 Standing at Portugal's highest point</span>
+            <span class="tip-tag free">Free to visit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">4:00 pm</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Nt-castelo-belmonte0.jpg/1920px-Nt-castelo-belmonte0.jpg" alt="Castelo de Belmonte, Portugal" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Castelo de Belmonte</div>
+          <div class="stop-type">Medieval Castle · Belmonte · ★ 4.4 (5,100+ reviews)</div>
+          <p class="stop-description">About 45 minutes east of Torre, Belmonte is the birthplace of Pedro Álvares Cabral, the explorer who discovered Brazil in 1500. The medieval castle sits high above the town with commanding views across the Cova da Beira plains. An hour is plenty — pair it with a wander through the old village streets before checking in for the evening.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">⏱ Allow 60–75 min</span>
+            <span class="tip-tag practical">⚠️ Closed Mondays · 9am–12:30pm &amp; 2–5:30pm</span>
+            <span class="tip-tag teens">🏰 Hilltop castle with panoramic views</span>
+            <span class="tip-tag seniors">🚶 Compact and walkable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="overnight-card">
+    <div class="overnight-moon">🌙</div>
+    <div>
+      <div class="overnight-label">Night One — Belmonte</div>
+      <div class="overnight-name">Pousada Convento de Belmonte</div>
+      <p class="overnight-desc">A former 16th-century convent converted into one of Portugal's most atmospheric hotels. Stone corridors, vaulted ceilings, hilltop views — and a legendary 8-course dinner showcasing wild boar, regional cheese, and local wine pairings. Waking up in a centuries-old monastery is something the whole group will remember for years. Rated 4.7 ★ (900+ reviews).</p>
+      <p class="overnight-alt">Budget alternative: Hotel Belsol, Belmonte ★4.3 — comfortable, good pool, excellent breakfast.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DAY 2 ══ -->
+<section class="day-section" id="day2">
+  <div class="day-header">
+    <div class="day-label">Day Two</div>
+    <h2 class="day-title">Villages Out of <em>Time</em></h2>
+    <p class="day-tagline">Three of Portugal's most singular historic villages — each utterly unlike the others, each impossible to forget.</p>
+    <div class="day-route-bar">
+      <span class="route-stop">Sortelha</span><span class="route-arrow">→</span>
+      <span class="route-stop">Monsanto</span><span class="route-arrow">→</span>
+      <span class="route-stop">Idanha-a-Velha</span><span class="route-arrow">→</span>
+      <span class="route-stop">Back to Monsanto</span>
+    </div>
+  </div>
+
+  <div class="stops-container">
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">9:30 am</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://portugaltravelguide.com/wp-content/uploads/2023/05/Sortelha-Portugal-e1743340458752.webp" alt="Sortelha medieval village, Portugal" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Sortelha</div>
+          <div class="stop-type">Medieval Walled Village · Beira Baixa · ★ 4.8 (5,500+ reviews)</div>
+          <p class="stop-description">Sortelha is, by any measure, one of the most extraordinary places in Portugal. A medieval granite village perched on a hilltop, encircled by ancient walls with a castle at its heart — and people still live here, going about their lives surrounded by 800 years of stone. Walk the full circuit of the castle walls for panoramic views, then lose yourself in the narrow cobblestone streets. Arrive before 10am to have it largely to yourself. About 40 minutes from Belmonte.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">⏱ Allow 2–2.5 hours</span>
+            <span class="tip-tag practical">🕘 Arrive early before day-trippers</span>
+            <span class="tip-tag teens">🏰 Walk the full castle wall circuit</span>
+            <span class="tip-tag seniors">🚶 Village centre flat; castle walls have steps</span>
+            <span class="tip-tag free">Free entry to village</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">12:30 pm</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://i0.wp.com/unusualplaces.org/wp-content/uploads/2013/05/Depositphotos_29642989_S.jpg" alt="Monsanto village, Portugal" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Monsanto</div>
+          <div class="stop-type">Historic Village · ★ 4.8 · Your Home for the Night</div>
+          <p class="stop-description">Monsanto defies easy description. Once voted the "most Portuguese village in Portugal," the houses are built between colossal boulders — wedged into gaps in the rock, with granite outcroppings serving as walls, roofs, and foundations. Walking through it feels like stepping into a fantasy novel. Arrive for lunch, explore through the afternoon, and settle in for the night — because this village after dark, once the day visitors leave, is completely magical.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">⏱ Afternoon + overnight</span>
+            <span class="tip-tag food">🍽️ Lunch in the village square</span>
+            <span class="tip-tag teens">🪨 Exploring between giant boulders</span>
+            <span class="tip-tag practical">☀️ Hot in July — sun protection essential</span>
+            <span class="tip-tag free">Free entry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">3:30 pm</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://portugalvirtual.pt/_tourism/costadeprata/idanha-a-velha/images/idanha-a-velha-08.jpg" alt="Roman bridge at Idanha-a-Velha, Portugal" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Idanha-a-Velha</div>
+          <div class="stop-type">Ancient Village · Roman &amp; Visigothic · ★ 4.5</div>
+          <p class="stop-description">One of the most ancient continuously inhabited places in Portugal — a tiny living village with 2,000 years of layered history in the same handful of streets: a Roman bridge, the finest Visigothic cathedral on the Iberian Peninsula, a Templar castle keep, and Moorish walls. All free, all walkable in 90 minutes, and almost eerily quiet. The tourist office staff are wonderfully helpful. Just 20 minutes from Monsanto — a perfect late-afternoon excursion before returning for the evening.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">⏱ Allow 90 min</span>
+            <span class="tip-tag practical">🚗 20 min from Monsanto</span>
+            <span class="tip-tag free">Completely free</span>
+            <span class="tip-tag teens">⚔️ Roman bridge &amp; Templar ruins</span>
+            <span class="tip-tag seniors">🚶 Fully flat and walkable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="overnight-card">
+    <div class="overnight-moon">🌙</div>
+    <div>
+      <div class="overnight-label">Night Two — Monsanto</div>
+      <div class="overnight-name">Casa Pires Mateus</div>
+      <p class="overnight-desc">The highest-rated guesthouse in Monsanto at 4.7 ★, run by welcoming local hosts who cook breakfast to order. Reviewers describe it as "one of the cosiest places we've ever stayed" — a proper family home turned guesthouse, warm, immaculate, and deeply authentic. After the day-trippers leave, Monsanto at dusk and after dark is completely magical.</p>
+      <p class="overnight-alt">⚠️ Book early — small property, fills quickly in July. The path up through the village involves steep cobblestones with luggage.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DAY 3 ══ -->
+<section class="day-section" id="day3">
+  <div class="day-header">
+    <div class="day-label">Day Three</div>
+    <h2 class="day-title">Fortresses at the <em>Edge of the Kingdom</em></h2>
+    <p class="day-tagline">Two of Europe's most dramatic fortified towns — built to hold Portugal's border with Spain — before the journey home.</p>
+    <div class="day-route-bar">
+      <span class="route-stop">Monsanto</span><span class="route-arrow">→</span>
+      <span class="route-stop">Almeida</span><span class="route-arrow">→</span>
+      <span class="route-stop">Trancoso</span><span class="route-arrow">→</span>
+      <span class="route-stop">Penalva do Castelo</span>
+    </div>
+  </div>
+
+  <div class="stops-container">
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">9:30 am</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://cdn.visitportugal.com/sites/default/files/styles/encontre_detalhe_poi_destaque/public/mediateca/Almeida_660x371.jpg" alt="Almeida star fortress, Portugal" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Almeida</div>
+          <div class="stop-type">Star Fortress · Beira Alta · Near Spanish Border · ★ 4.6 (2,700+ reviews)</div>
+          <p class="stop-description">About 1h15 from Monsanto, Almeida is unlike anywhere else in Portugal. An 18th-century star-shaped military fortress — the most perfectly preserved of its kind in the country — with sharp angular bastions designed to deflect cannon fire. Walking the full perimeter takes about an hour and the star geometry, seen from the ramparts, is extraordinary. Real people still live inside: houses, a church, a square, and restaurants all within the walls. Have lunch at the celebrated Restaurante 1810, which reviewers consistently praise for outstanding traditional food at remarkable value — around €10 for a full meal.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">⏱ Allow 2.5–3 hours</span>
+            <span class="tip-tag practical">🚗 ~1h15 from Monsanto</span>
+            <span class="tip-tag food">🍽️ Lunch: Restaurante 1810 — ~€10/person</span>
+            <span class="tip-tag teens">⭐ Walk the full star-shaped perimeter</span>
+            <span class="tip-tag free">Free to enter the fortress</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">2:30 pm</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Castelo_de_Trancoso.jpg/500px-Castelo_de_Trancoso.jpg" alt="Trancoso castle tower, Portugal" style="width:100%;height:210px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Trancoso</div>
+          <div class="stop-type">Medieval Walled Town · Beira Alta · ★ 4.5 (1,700+ reviews)</div>
+          <p class="stop-description">A medieval walled town with one of the best-preserved complete circuits of town walls in Portugal and a well-maintained castle offering panoramic views back toward Serra da Estrela. Inside is a living town with a beautiful central square and a fascinating medieval Jewish quarter — carved stone doorways of the old judaria are still visible throughout the streets. A lighter, contemplative ending to the trip: find an outdoor table, have a coffee or ice cream, and let the journey settle before heading home. Penalva do Castelo is about 45 minutes southwest.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">⏱ Allow 1.5–2 hours</span>
+            <span class="tip-tag free">Free entry to castle and walls</span>
+            <span class="tip-tag teens">🏰 Walk the full town walls circuit</span>
+            <span class="tip-tag food">☕ Coffee &amp; ice cream in the main square</span>
+            <span class="tip-tag seniors">🚶 Town centre flat; walls involve some steps</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">5:30 pm</div><span class="stop-dot"></span></div>
+      <div class="stop-content">
+        <div class="stop-body">
+          <div class="stop-name">Penalva do Castelo</div>
+          <div class="stop-type">Return Home · ~45 min from Trancoso</div>
+          <p class="stop-description">The drive home through the rolling Beira Alta countryside is a gentle, fitting close to three extraordinary days in one of Portugal's most rewarding and undervisited regions.</p>
+          <div class="stop-tips">
+            <span class="tip-tag practical">🚗 ~45 min southwest from Trancoso</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRACTICAL -->
+<section class="practical-panel" id="practical">
+  <div class="practical-inner">
+    <h2 class="practical-title">Everything You Need to Know</h2>
+    <div class="practical-grid">
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🚗</div>
+        <div class="practical-card-title">Getting Around</div>
+        <p>A car is essential — public transport does not serve these villages. Roads are generally good but mountain roads in Serra da Estrela can be narrow and slow. Allow extra time for the Covão d'Ametade access road, which has one-lane traffic control in summer. Day 3 has the longest morning drive: ~1h15 from Monsanto to Almeida.</p>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">📅</div>
+        <div class="practical-card-title">Timing &amp; Dates</div>
+        <ul>
+          <li>Travel window: July 21–27, 2026</li>
+          <li>Serra da Estrela best in the morning before heat builds</li>
+          <li>Sortelha: arrive before 10am for best experience</li>
+          <li>Monsanto: hot midday — shaded alleys help</li>
+          <li><strong>Castelo de Belmonte: closed Mondays</strong></li>
+          <li>Plan Day 1 so Belmonte doesn't fall on a Monday</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🏨</div>
+        <div class="practical-card-title">Accommodation</div>
+        <ul>
+          <li><strong>Night 1:</strong> Pousada Convento de Belmonte ★4.7<br><span style="font-size:0.8rem;color:#8C7A65">pousadas.pt · +351 275 910 300</span></li>
+          <li style="margin-top:7px;"><strong>Budget alt:</strong> Hotel Belsol, Belmonte ★4.3</li>
+          <li style="margin-top:7px;"><strong>Night 2:</strong> Casa Pires Mateus, Monsanto ★4.7<br><span style="font-size:0.8rem;color:#8C7A65">Very small — book immediately for July</span></li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🍽️</div>
+        <div class="practical-card-title">Food &amp; Drink</div>
+        <ul>
+          <li>Pousada Belmonte: 8-course dinner — book in advance</li>
+          <li>Covão d'Ametade: no facilities — bring a picnic</li>
+          <li>Monsanto: traditional restaurants in the village square</li>
+          <li>Almeida: Restaurante 1810 inside the walls — ~€10/person</li>
+          <li>Trancoso: coffee and ice cream in the main square</li>
+          <li>Regional speciality: <em>queijo da Serra</em> (mountain cheese)</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">👟</div>
+        <div class="practical-card-title">What to Bring</div>
+        <ul>
+          <li>Comfortable walking shoes — cobblestones throughout</li>
+          <li>A layer for Serra da Estrela — cooler at altitude</li>
+          <li>Sun protection — very hot in the lowlands in July</li>
+          <li>Water bottles — facilities scarce at some sites</li>
+          <li>Picnic supplies for Covão d'Ametade</li>
+          <li>Cash — some rural restaurants prefer it</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">✅</div>
+        <div class="practical-card-title">Good to Know</div>
+        <ul>
+          <li>Most major sites are free or very low cost</li>
+          <li>All village centres are flat and easily walkable</li>
+          <li>Castle ramparts &amp; valley trails for the adventurous</li>
+          <li>No single site requires more than 3 hours</li>
+          <li>Both overnight stays are genuinely special experiences</li>
+          <li>Flexible pace — no strict timed entry anywhere</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Monteverde &amp; Marquês <strong>Tour of Beira</strong> &nbsp;·&nbsp; Portugal &nbsp;·&nbsp; July 2026</p>
+  <p style="margin-top:8px;font-size:0.69rem;opacity:0.45;">All timings are approximate &nbsp;·&nbsp; Verify opening hours before visiting &nbsp;·&nbsp; Book accommodation well in advance for July</p>
+</footer>
+
+</body>
+</html>
