@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barcelona — Monteverde & Marquês Family Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --deep-blue: #0A1628;
+  --white: #FDFAF5;
+  --gold: #E8A020;
+  --teal: #1B8A8F;
+  --rust: #C4522A;
+  --stone: #E8E2D9;
+  --text: #1A1A2E;
+  --text-mid: #4A4A6A;
+  --text-light: #7A7A9A;
+  --day1: #1B8A8F;
+  --day2: #C4522A;
+  --day3: #2E6B3E;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--deep-blue);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 60px 24px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(232,160,32,0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(27,138,143,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(196,82,42,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+  background: repeating-linear-gradient(90deg,
+    var(--gold) 0px, var(--gold) 18px, var(--teal) 18px, var(--teal) 36px,
+    var(--rust) 36px, var(--rust) 54px, var(--deep-blue) 54px, var(--deep-blue) 60px,
+    #5B8DD9 60px, #5B8DD9 78px, var(--gold) 78px);
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  font-size: 0.72rem; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+}
+.hero-city {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(5rem, 15vw, 12rem);
+  font-weight: 300; line-height: 0.88;
+  color: var(--white); letter-spacing: -0.02em;
+  opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+}
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 300;
+  color: rgba(253,250,245,0.65); max-width: 560px; margin-top: 28px;
+  opacity: 0; animation: fadeUp 0.7s 0.7s forwards;
+}
+.hero-stats {
+  display: flex; gap: 0; margin-top: 56px;
+  border: 1px solid rgba(232,160,32,0.25);
+  opacity: 0; animation: fadeUp 0.7s 1.0s forwards;
+}
+.hero-stat { padding: 20px 36px; text-align: center; border-right: 1px solid rgba(232,160,32,0.25); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--gold); line-height: 1; }
+.hero-stat-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(253,250,245,0.4); margin-top: 4px; }
+.scroll-hint {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  opacity: 0; animation: fadeUp 0.7s 1.4s forwards;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.scroll-hint span { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(253,250,245,0.28); }
+.scroll-arrow { width: 16px; height: 16px; border-right: 1px solid rgba(232,160,32,0.4); border-bottom: 1px solid rgba(232,160,32,0.4); transform: rotate(45deg); animation: bounce 1.8s infinite; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100; background: var(--deep-blue);
+  display: flex; justify-content: center; align-items: center;
+  border-bottom: 1px solid rgba(232,160,32,0.15); padding: 0 12px;
+}
+.nav a {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(253,250,245,0.4); padding: 14px 18px; text-decoration: none;
+  border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+}
+.nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ── MOSAIC DIVIDER ── */
+.mosaic-divider {
+  height: 5px; width: 100%;
+  background: repeating-linear-gradient(90deg,
+    var(--gold) 0px, var(--gold) 14px, var(--teal) 14px, var(--teal) 28px,
+    var(--rust) 28px, var(--rust) 42px, var(--deep-blue) 42px, var(--deep-blue) 48px,
+    #5B8DD9 48px, #5B8DD9 60px, var(--white) 60px, var(--white) 62px);
+}
+
+/* ── INTRO ── */
+.intro { max-width: 760px; margin: 72px auto; padding: 0 24px; text-align: center; }
+.intro-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 300; color: var(--text-mid); line-height: 1.7; }
+.intro-body { font-size: 0.96rem; color: var(--text-light); margin-top: 20px; line-height: 1.8; }
+.ornament { font-size: 1.5rem; color: var(--gold); margin: 24px 0; letter-spacing: 0.6em; opacity: 0.45; }
+
+/* ── BOOKING ALERT ── */
+.booking-alert {
+  max-width: 900px; margin: 0 auto 72px;
+  background: var(--deep-blue); padding: 32px 40px;
+  border-left: 4px solid var(--gold);
+  display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start;
+}
+.booking-alert-icon { font-size: 1.8rem; padding-top: 2px; }
+.booking-alert-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 14px; }
+.booking-links { display: flex; flex-direction: column; gap: 10px; }
+.booking-link { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-size: 0.84rem; }
+.booking-link-name { font-weight: 600; color: var(--gold); white-space: nowrap; }
+.booking-link-detail { color: rgba(253,250,245,0.6); font-size: 0.8rem; }
+.booking-link a { color: var(--teal); text-decoration: none; font-weight: 500; font-size: 0.78rem; }
+.booking-link a:hover { text-decoration: underline; }
+.booking-urgent { background: rgba(232,160,32,0.15); border-radius: 3px; padding: 1px 7px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+
+/* ── DAY HEADER ── */
+.day-section { margin-bottom: 80px; }
+.day-header { background: var(--deep-blue); padding: 64px 40px 56px; text-align: center; position: relative; overflow: hidden; }
+.day-header-accent { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.day-number { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.38em; text-transform: uppercase; margin-bottom: 14px; }
+.day-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; color: var(--white); max-width: 680px; margin: 0 auto 16px; }
+.day-title em { font-style: italic; }
+.day-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 1.8vw, 1.2rem); font-weight: 300; color: rgba(253,250,245,0.55); max-width: 540px; margin: 0 auto; }
+.day-route { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+.route-pill { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; color: var(--white); background: rgba(255,255,255,0.08); }
+.route-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+/* ── STOPS ── */
+.stops { max-width: 900px; margin: 0 auto; padding: 48px 24px 0; }
+.stop { display: grid; grid-template-columns: 64px 1fr; gap: 0 24px; margin-bottom: 44px; position: relative; }
+.stop::before { content: ''; position: absolute; left: 31px; top: 46px; bottom: -44px; width: 1px; background: linear-gradient(to bottom, var(--stone), transparent); }
+.stop:last-child::before { display: none; }
+.stop-time-col { text-align: right; padding-top: 4px; }
+.stop-time { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); white-space: nowrap; }
+.stop-node { width: 10px; height: 10px; border-radius: 50%; margin: 8px auto 0; display: block; border: 2px solid var(--white); box-shadow: 0 0 0 2px currentColor; }
+.stop-card { background: var(--white); overflow: hidden; box-shadow: 0 1px 16px rgba(10,22,40,0.08); border-top: 3px solid currentColor; }
+.stop-body { padding: 20px 24px 18px; }
+.stop-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.stop-type { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
+.stop-desc { font-size: 0.92rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 12px; }
+.stop-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag { font-size: 0.68rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+.tag.teens { background: rgba(27,138,143,0.1); color: var(--teal); }
+.tag.book { background: rgba(232,160,32,0.12); color: #A06010; }
+.tag.food { background: rgba(196,82,42,0.1); color: var(--rust); }
+.tag.free { background: rgba(46,107,62,0.1); color: var(--day3); }
+.tag.tip { background: rgba(74,74,106,0.1); color: var(--text-mid); }
+.tag.optional { background: rgba(91,141,217,0.1); color: #3A6AAA; }
+
+/* ── OPTIONAL CALLOUT ── */
+.optional-callout {
+  margin: -20px 24px 24px;
+  background: rgba(91,141,217,0.06); border: 1px dashed rgba(91,141,217,0.3);
+  padding: 14px 18px; display: flex; gap: 12px; align-items: start;
+}
+.optional-callout-icon { font-size: 1.1rem; flex-shrink: 0; padding-top: 1px; }
+.optional-callout-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #3A6AAA; margin-bottom: 4px; }
+.optional-callout-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
+
+/* ── EVENING CARD ── */
+.evening-card { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 5px 1fr; }
+.evening-stripe { }
+.evening-inner { background: var(--deep-blue); padding: 32px 36px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; }
+.evening-icon { font-size: 1.8rem; line-height: 1; padding-top: 3px; }
+.evening-eyebrow { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; margin-bottom: 6px; }
+.evening-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+.evening-desc { font-size: 0.87rem; color: rgba(253,250,245,0.65); line-height: 1.7; }
+.evening-note { font-size: 0.78rem; color: rgba(253,250,245,0.35); font-style: italic; margin-top: 7px; }
+
+/* ── DINNER CARD ── */
+.dinner-card { max-width: 900px; margin: 8px auto 0; background: rgba(232,160,32,0.06); padding: 20px 36px 20px 40px; border-left: 3px solid var(--gold); display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+.dinner-icon { font-size: 1.4rem; padding-top: 2px; }
+.dinner-eyebrow { font-size: 0.63rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+.dinner-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.dinner-desc { font-size: 0.84rem; color: var(--text-mid); line-height: 1.65; }
+
+/* ── PRACTICAL ── */
+.practical { background: var(--stone); padding: 64px 24px; }
+.practical-inner { max-width: 900px; margin: 0 auto; }
+.practical-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--text); margin-bottom: 32px; text-align: center; }
+.practical-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.practical-card { background: var(--white); padding: 24px; box-shadow: 0 1px 8px rgba(10,22,40,0.06); }
+.practical-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+.practical-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 9px; }
+.practical-card p, .practical-card li { font-size: 0.84rem; color: var(--text-mid); line-height: 1.7; }
+.practical-card ul { padding-left: 14px; }
+.practical-card li { margin-bottom: 4px; }
+.practical-card a { color: var(--teal); text-decoration: none; font-weight: 500; }
+.practical-card a:hover { text-decoration: underline; }
+
+/* ── FOOTER ── */
+footer { background: var(--deep-blue); color: rgba(253,250,245,0.3); text-align: center; padding: 44px 24px; font-size: 0.76rem; letter-spacing: 0.1em; }
+footer strong { color: var(--gold); font-weight: 400; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes bounce { 0%,100%{ transform:rotate(45deg) translateY(0); } 50%{ transform:rotate(45deg) translateY(5px); } }
+
+/* ── RESPONSIVE ── */
+@media(max-width:620px){
+  .stop { grid-template-columns: 52px 1fr; gap: 0 12px; }
+  .stop::before { left: 25px; }
+  .day-header { padding: 50px 18px 44px; }
+  .booking-alert { padding: 22px 20px; grid-template-columns: 1fr; }
+  .evening-inner { padding: 22px 20px; }
+  .dinner-card { padding: 18px 20px; }
+  .nav a { padding: 12px 10px; font-size: 0.62rem; }
+  .hero-stats { flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid rgba(232,160,32,0.2); }
+  .hero-stat:last-child { border-bottom: none; }
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+  .hero-eyebrow,.hero-city,.hero-tagline,.hero-stats,.scroll-hint{ opacity:1; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Monteverde &amp; Marquês &nbsp;·&nbsp; Family Guide &nbsp;·&nbsp; July 18–20, 2026</p>
+  <h1 class="hero-city">Barcelona</h1>
+  <p class="hero-tagline">Gaudí's impossible city — three days of architecture that breaks every rule, Mediterranean light, and a family's worth of memories.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Days</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">11</div><div class="hero-stat-label">Stops</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">People</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">140<span style="font-size:1rem">yr</span></div><div class="hero-stat-label">Under Construction</div></div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-arrow"></div></div>
+</section>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#intro">Overview</a>
+  <a href="#book">Book Ahead</a>
+  <a href="#day1">Day 1</a>
+  <a href="#day2">Day 2</a>
+  <a href="#day3">Day 3</a>
+  <a href="#practical">Practical</a>
+</nav>
+
+<div class="mosaic-divider"></div>
+
+<!-- INTRO -->
+<section class="intro" id="intro">
+  <p class="intro-quote">"Barcelona is the only city in the world where the architect of the universe seems to have been having fun."</p>
+  <div class="ornament">· · ·</div>
+  <p class="intro-body">You're staying in Eixample — the grid district Gaudí made his canvas. Casa Batlló and La Pedrera are practically on your doorstep. This itinerary is built for an adventurous family: bold architecture, Mediterranean swimming, a legendary flamenco show, the greatest Picasso collection in the world, and a mosaic-covered hilltop park that feels like a fever dream. Three days, sensible pace, no wasted hours.</p>
+  <p class="intro-body" style="margin-top:12px;">Check-in at 203 Carrer de Provença isn't until 4pm on July 18 — Day 1 is planned around this with luggage storage sorted from the moment you arrive.</p>
+</section>
+
+<!-- BOOKING ALERT -->
+<div class="booking-alert" id="book">
+  <div class="booking-alert-icon">🎟️</div>
+  <div>
+    <div class="booking-alert-title">Book These Before You Go — Several Will Sell Out</div>
+    <div class="booking-links">
+      <div class="booking-link">
+        <span class="booking-urgent">Book Now</span>
+        <span class="booking-link-name">Sagrada Família</span>
+        <span class="booking-link-detail">9:00am July 19 · Interior + Audio Guide · 2026 is Gaudí centenary year — selling out weeks ahead</span>
+        <a href="https://sagradafamilia.org/en/sagrada-familia-ticket" target="_blank">sagradafamilia.org →</a>
+      </div>
+      <div class="booking-link">
+        <span class="booking-urgent">Book Soon</span>
+        <span class="booking-link-name">Park Güell</span>
+        <span class="booking-link-detail">9:30am July 20 · Timed entry only — no tickets at the gate</span>
+        <a href="https://parkguell.barcelona/en/plan-your-visit/tickets" target="_blank">parkguell.barcelona →</a>
+      </div>
+      <div class="booking-link">
+        <span class="booking-urgent">Book Soon</span>
+        <span class="booking-link-name">Picasso Museum</span>
+        <span class="booking-link-detail">Afternoon July 19 · Book ahead for July crowds</span>
+        <a href="https://museupicasso.bcn.cat/en/visit/tickets" target="_blank">museupicasso.bcn.cat →</a>
+      </div>
+      <div class="booking-link">
+        <span class="booking-urgent">Book Soon</span>
+        <span class="booking-link-name">Tablao Cordobes Flamenco</span>
+        <span class="booking-link-detail">7:15pm July 20 · Show + optional dinner buffet · Ages 4+ ✓ · Non-verbal show</span>
+        <a href="https://www.tablaocordobes.es/en/shows" target="_blank">tablaocordobes.es →</a>
+      </div>
+      <div class="booking-link">
+        <span class="booking-link-name" style="color:rgba(253,250,245,0.7);">Luggage Storage</span>
+        <span class="booking-link-detail">July 18 morning · Drop bags near your apartment, explore unburdened all day</span>
+        <a href="https://stasher.com/luggage-storage/spain/barcelona/eixample" target="_blank">stasher.com/eixample →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DAY 1 ══ -->
+<section class="day-section" id="day1">
+  <div class="day-header">
+    <div class="day-header-accent" style="background:linear-gradient(90deg,transparent,var(--day1),transparent);"></div>
+    <div class="day-number" style="color:var(--day1);">Saturday · July 18</div>
+    <h2 class="day-title">Arrival — <em>Sand, Sea &amp; Magic</em></h2>
+    <p class="day-sub">A relaxed first day: Gaudí's boulevard, the famous market, 2–3 hours on the Mediterranean, seafood by the water, and a magical fountain to end it.</p>
+    <div class="day-route">
+      <span class="route-pill">Eixample</span><span class="route-dot"></span>
+      <span class="route-pill">Passeig de Gràcia</span><span class="route-dot"></span>
+      <span class="route-pill">La Boqueria</span><span class="route-dot"></span>
+      <span class="route-pill">Barceloneta</span><span class="route-dot"></span>
+      <span class="route-pill">Font Màgica</span>
+    </div>
+  </div>
+
+  <div class="stops">
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">8:30 am</div><span class="stop-node" style="color:var(--day1);"></span></div>
+      <div class="stop-card" style="color:var(--day1);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Passeig de Gràcia Barcelona morning" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Luggage Drop &amp; Passeig de Gràcia</div>
+          <div class="stop-type" style="color:var(--day1);">Arrival · Eixample · Free</div>
+          <p class="stop-desc">Head straight to your nearest Stasher location in Eixample — partner shops are dotted throughout the neighbourhood, all within minutes of your apartment. Drop the bags (~€6–8 per bag for the day), then find a <em>terrassa</em> café for your first Spanish breakfast: <em>pa amb tomàquet</em> — bread rubbed with tomato and olive oil — and a cortado. Then walk Passeig de Gràcia, Barcelona's most extraordinary boulevard. Within one block — the famous <em>Manzana de la Discordia</em> — stand three rival Modernisme masterpieces: Casa Batlló, Casa Amatller, and Casa Lleó Morera. Further north, Casa Milà (La Pedrera) ripples like a stone wave. You're saving the interiors for another visit — the facades alone are astonishing.</p>
+          <div class="stop-tags">
+            <span class="tag tip">💼 Book storage at stasher.com/eixample</span>
+            <span class="tag free">~€6–8 per bag</span>
+            <span class="tag teens">📸 Best building facades in Europe</span>
+            <span class="tag tip">⏱ Allow 1.5 hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">11:00 am</div><span class="stop-node" style="color:var(--day1);"></span></div>
+      <div class="stop-card" style="color:var(--day1);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="La Boqueria market Las Ramblas Barcelona" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">La Boqueria</div>
+          <div class="stop-type" style="color:var(--day1);">Market · Las Ramblas · Free entry</div>
+          <p class="stop-desc">Barcelona's most famous market — touristy, yes, but also genuinely spectacular. The trick: arrive before noon (you're well placed), skip the front stalls which are tourist-priced, and head to the back where the real vendors are. Grab fresh fruit, a chunk of jamón, local cheese, or a fresh juice and wander. More spectacle than shopping, but as a first-morning taste of the city it's hard to beat. You're in the area today specifically so it's a natural stop rather than a detour — keep it to 45 minutes and move on.</p>
+          <div class="stop-tags">
+            <span class="tag free">Free entry</span>
+            <span class="tag tip">🕐 Before noon — less crowded</span>
+            <span class="tag food">🍓 Fresh fruit + jamón at back stalls</span>
+            <span class="tag tip">⚠️ Avoid eating at front tourist stalls</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">12:15 pm</div><span class="stop-node" style="color:var(--day1);"></span></div>
+      <div class="stop-card" style="color:var(--day1);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Barceloneta beach Barcelona Mediterranean" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Barceloneta — Mediterranean Swim</div>
+          <div class="stop-type" style="color:var(--day1);">Beach · Free · 20 min from La Boqueria on foot</div>
+          <p class="stop-desc">The main event of Day 1. Barceloneta is Barcelona's classic urban beach — flat, sandy, properly Mediterranean, and absolutely worth the trip. Swim, relax, let the kids run into the waves. At 2pm, pull up a chair at one of the beachside restaurants for a proper Spanish seafood lunch: <em>paella</em>, grilled fish, calamari, cold white wine, the works. Then back on the sand until 4pm. This is your 2–3 hour beach moment — no rushing, nowhere to be. Leave around 7:30pm to freshen up before the fountain.</p>
+          <div class="stop-tags">
+            <span class="tag free">Free</span>
+            <span class="tag teens">🌊 First Mediterranean swim</span>
+            <span class="tag food">🥘 Seafood lunch at 2pm — beachside restaurants</span>
+            <span class="tag tip">🕠 Leave by 7:30pm for Font Màgica</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="evening-card">
+    <div class="evening-stripe" style="background:var(--day1);"></div>
+    <div class="evening-inner">
+      <div class="evening-icon">✨</div>
+      <div>
+        <div class="evening-eyebrow" style="color:var(--day1);">Saturday Evening · 8:00pm</div>
+        <div class="evening-title">Font Màgica — The Magic Fountain</div>
+        <p class="evening-desc">After the beach, a quick stop back at the apartment to freshen up, then taxi to Montjuïc — about 15 minutes from Barceloneta. The Magic Fountain show runs at 8pm and 8:30pm on Saturdays (free, no booking needed). Arrive by 7:45pm to claim a good spot on the MNAC steps behind the fountain — the whole city spreads below you. The choreographed light, water and music display lasts 20–30 minutes and is genuinely spectacular. A perfect way to end your first evening in Barcelona. Saturday is the only night this falls on your trip so it's a natural fit.</p>
+        <p class="evening-note">Free · No booking needed · Metro to Espanya (L1 or L3) then 10 min walk, or taxi direct · Arrive 15 min early · Saturday show confirmed ✓</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-icon">🍽️</div>
+    <div>
+      <div class="dinner-eyebrow">Dinner — Night 1</div>
+      <div class="dinner-title">Easy Eixample — Keep It Simple Tonight</div>
+      <p class="dinner-desc">After the fountain, head back to Eixample for a low-key dinner near the apartment. You've already eaten well at the beach — tonight is about a glass of wine, some <em>croquetes</em>, and an early night. The streets around Carrer del Consell de Cent and Carrer de Muntaner are lined with excellent neighbourhood spots. No reservation needed, no pressure. Sagrada Família awaits at 9am tomorrow.</p>
+    </div>
+  </div>
+</section>
+
+<div class="mosaic-divider"></div>
+
+<!-- ══ DAY 2 ══ -->
+<section class="day-section" id="day2">
+  <div class="day-header">
+    <div class="day-header-accent" style="background:linear-gradient(90deg,transparent,var(--day2),transparent);"></div>
+    <div class="day-number" style="color:var(--day2);">Sunday · July 19</div>
+    <h2 class="day-title">Gaudí, Picasso <em>&amp; Rooftops</em></h2>
+    <p class="day-sub">The cathedral that defies physics, the market the locals actually use, the greatest Picasso collection in the world, and a rooftop dinner as the sun sets over Barcelona.</p>
+    <div class="day-route">
+      <span class="route-pill">Sagrada Família</span><span class="route-dot"></span>
+      <span class="route-pill">Santa Caterina</span><span class="route-dot"></span>
+      <span class="route-pill">Picasso Museum</span><span class="route-dot"></span>
+      <span class="route-pill">Gothic Quarter</span><span class="route-dot"></span>
+      <span class="route-pill">Passeig Marítim</span><span class="route-dot"></span>
+      <span class="route-pill">Rooftop Dinner</span>
+    </div>
+  </div>
+
+  <div class="stops">
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">9:00 am</div><span class="stop-node" style="color:var(--day2);"></span></div>
+      <div class="stop-card" style="color:var(--day2);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Sagrada Família interior Barcelona stained glass" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Sagrada Família</div>
+          <div class="stop-type" style="color:var(--day2);">Basilica · Gaudí · Pre-booked timed entry required · ★ 4.8</div>
+          <p class="stop-desc">There is nothing else like it on earth. Gaudí began it in 1882 and died before it was a quarter finished — it reaches completion in 2026, his centenary year, which means you're visiting at a genuinely historic moment. The exterior is extraordinary, but the interior is the revelation: forest-like columns branch into the ceiling, and the stained glass on the east wall casts the entire nave in shifting colour as the morning progresses. <strong>Download the official Sagrada Família app and bring earphones</strong> — the audio guide is excellent and included in your ticket. Allow 1.5–2 hours. The 9am first slot is the quietest and most beautiful time of day.</p>
+          <div class="stop-tags">
+            <span class="tag book">🎟️ Book now at sagradafamilia.org — URGENT</span>
+            <span class="tag teens">🏗️ 140 years under construction — finishing this year</span>
+            <span class="tag tip">📱 Download official app + bring earphones</span>
+            <span class="tag tip">⏱ Allow 1.5–2 hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">11:30 am</div><span class="stop-node" style="color:var(--day2);"></span></div>
+      <div class="stop-card" style="color:var(--day2);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Mercat de Santa Caterina Barcelona colourful roof El Born" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Mercat de Santa Caterina</div>
+          <div class="stop-type" style="color:var(--day2);">Market · El Born · Free entry</div>
+          <p class="stop-desc">Take the metro from Sagrada Família to El Born (about 15 minutes) and head straight to Santa Caterina — Barcelona's best market and the one locals actually use. The building is an architectural event: an undulating mosaic tile roof designed by Enric Miralles, a riot of colour visible from the street. Inside: fresh produce, jamón, local cheese, olives, and real neighbourhood life. Head to <strong>Bar Joan</strong> inside for traditional tapas at genuinely local prices — the perfect late morning snack before the Picasso Museum next door.</p>
+          <div class="stop-tags">
+            <span class="tag free">Free entry</span>
+            <span class="tag food">🥘 Bar Joan inside — excellent tapas</span>
+            <span class="tag tip">🏛️ The mosaic roof is an attraction in itself</span>
+            <span class="tag teens">🎨 Colourful, lively, very photogenic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">1:00 pm</div><span class="stop-node" style="color:var(--day2);"></span></div>
+      <div class="stop-card" style="color:var(--day2);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Museu Picasso Barcelona medieval palace El Born" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Museu Picasso</div>
+          <div class="stop-type" style="color:var(--day2);">Museum · El Born · Book in advance · ★ 4.6</div>
+          <p class="stop-desc">One of the great museums in Europe, and the setting makes it extraordinary: five connected medieval palaces in the heart of El Born, their 15th-century courtyards converted into gallery spaces. The collection focuses on Picasso's formative years in Barcelona — over 4,000 works tracing his development from teenage prodigy to revolutionary artist. The <em>Las Meninas</em> series, his 58-painting dialogue with Velázquez, is alone worth the visit. Allow 1.5 hours and book tickets in advance for July.</p>
+          <div class="stop-tags">
+            <span class="tag book">🎟️ Book at museupicasso.bcn.cat</span>
+            <span class="tag teens">🎨 Genius in a medieval palace</span>
+            <span class="tag tip">⏱ Allow 1.5 hours</span>
+            <span class="tag tip">🏛️ Five connected 15th-century palaces</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">3:00 pm</div><span class="stop-node" style="color:var(--day2);"></span></div>
+      <div class="stop-card" style="color:var(--day2);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Gothic Quarter Barcelona narrow medieval streets" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Gothic Quarter</div>
+          <div class="stop-type" style="color:var(--day2);">Historic District · Free · Directly adjacent to El Born</div>
+          <p class="stop-desc">Step out of the Picasso Museum directly into one of the best-preserved medieval city centres in Europe, with Roman walls still visible built into the buildings. The goal here is not a checklist but an atmosphere — get pleasantly lost. Find Plaça Reial with its palm trees and wrought-iron lampposts designed by a young Gaudí. Walk Carrer del Bisbe. Find the Barcelona Cathedral. Stumble into hidden courtyards. Let the teens lead for a while — the quarter rewards wandering more than planning.</p>
+          <div class="stop-tags">
+            <span class="tag free">Free to explore</span>
+            <span class="tag teens">🗺️ Get deliberately lost</span>
+            <span class="tag tip">👀 Roman walls built into medieval buildings</span>
+            <span class="tag tip">📍 Plaça Reial — lampposts by young Gaudí</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">5:00 pm</div><span class="stop-node" style="color:var(--day2);"></span></div>
+      <div class="stop-card" style="color:var(--day2);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Passeig Marítim Barcelona waterfront promenade" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Passeig Marítim — Coastal Walk</div>
+          <div class="stop-type" style="color:var(--day2);">Waterfront Promenade · Free · 15 min walk from Gothic Quarter</div>
+          <p class="stop-desc">A flat, beautiful 2km boardwalk running from Port Olímpic to Barceloneta, lined with palm trees, beach bars, and public art — with the Mediterranean right beside you the entire way. This is a relaxed wind-down after a big culture day: stroll, breathe, feel the sea air. The beach is right there if anyone wants to kick off their shoes and paddle — no commitment needed, just the option. Allow about an hour at whatever pace feels right, then head back toward Eixample to freshen up for dinner.</p>
+          <div class="stop-tags">
+            <span class="tag free">Free</span>
+            <span class="tag teens">🌊 Paddle in the sea if the mood strikes</span>
+            <span class="tag tip">⏱ Allow ~1 hour at leisure</span>
+            <span class="tag tip">🌅 Sunset at 9:15pm — visible from rooftop at dinner</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="evening-card">
+    <div class="evening-stripe" style="background:var(--day2);"></div>
+    <div class="evening-inner">
+      <div class="evening-icon">🌆</div>
+      <div>
+        <div class="evening-eyebrow" style="color:var(--day2);">Sunday Evening · 8:30pm</div>
+        <div class="evening-title">Rooftop Dinner — Barcelona at Sunset</div>
+        <p class="evening-desc">Tonight's the special dinner. Sunset in Barcelona in July is at 9:15pm — you'll be seated and settled when the city turns gold. Three well-regarded options near your routing: <strong>La Pepita Rooftop</strong> in Gràcia (tapas and cocktails, relaxed, great for families), <strong>SKYBAR at Grand Hotel Central</strong> in El Born (rooftop terrace, spectacular city views, more casual), or <strong>Terraza del Hotel Ohla</strong> in the Gothic Quarter (elegant, excellent food, intimate). All three are bookable online — recommended for Sunday evening in July. Dinner at 8:30pm is perfectly Spanish.</p>
+        <p class="evening-note">Book in advance for Sunday evening · 8:30–9pm is normal dinner time in Barcelona · Sunset at 9:15pm — watch it from above the city</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mosaic-divider"></div>
+
+<!-- ══ DAY 3 ══ -->
+<section class="day-section" id="day3">
+  <div class="day-header">
+    <div class="day-header-accent" style="background:linear-gradient(90deg,transparent,var(--day3),transparent);"></div>
+    <div class="day-number" style="color:#5BBF7A;">Monday · July 20</div>
+    <h2 class="day-title">Mosaics, Mountains <em>&amp; Flamenco</em></h2>
+    <p class="day-sub">Gaudí's mosaic hilltop park, the village-within-the-city, an ancient fortress above it all — and a world-class flamenco show to close the trip.</p>
+    <div class="day-route">
+      <span class="route-pill">Park Güell</span><span class="route-dot"></span>
+      <span class="route-pill">Gràcia</span><span class="route-dot"></span>
+      <span class="route-pill">Montjuïc</span><span class="route-dot"></span>
+      <span class="route-pill">Tablao Cordobes</span>
+    </div>
+  </div>
+
+  <div class="stops">
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">9:30 am</div><span class="stop-node" style="color:var(--day3);"></span></div>
+      <div class="stop-card" style="color:var(--day3);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Park Güell Barcelona mosaic dragon staircase Gaudí" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Park Güell</div>
+          <div class="stop-type" style="color:var(--day3);">Gaudí Park · Timed Entry · Pre-booked required · ★ 4.5</div>
+          <p class="stop-desc">Gaudí's great unfinished garden city — a hilltop of mosaic dragons, serpentine benches encrusted with <em>trencadís</em> tile, vaulted market halls with organic stone columns, and at the top, one of the finest views over Barcelona anywhere in the city. The 9:30am slot is the best of the day — cooler, quieter, and the morning light on the mosaic work is extraordinary. From the famous serpentine bench on the main terrace, the whole of Barcelona fans out below you toward the sea. Allow 1.5–2 hours. Note: tickets are not sold at the gate, online booking is essential.</p>
+          <div class="stop-tags">
+            <span class="tag book">🎟️ Book at parkguell.barcelona — no gate tickets</span>
+            <span class="tag teens">🦎 The mosaic dragon staircase</span>
+            <span class="tag tip">⏱ Allow 1.5–2 hours</span>
+            <span class="tag tip">🌡️ Bring water — exposed hill in July heat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">12:00 pm</div><span class="stop-node" style="color:var(--day3);"></span></div>
+      <div class="stop-card" style="color:var(--day3);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Gràcia neighbourhood Barcelona local plaza" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Gràcia — The Village in the City</div>
+          <div class="stop-type" style="color:var(--day3);">Neighbourhood · Free · Directly downhill from Park Güell</div>
+          <p class="stop-desc">Walk downhill from Park Güell directly into Gràcia — Barcelona's most distinctive neighbourhood, a former independent village that never quite surrendered its identity after being absorbed by the city. Narrow streets, small plazas with outdoor terraces, independent shops, no tourist coaches. Find Plaça del Sol or Plaça de la Vila de Gràcia for lunch — pull up a chair and order a <em>menú del día</em> (2–3 courses with wine, typically €12–15). This is as local as Barcelona gets and a perfect counterpoint to the big sights of the morning.</p>
+          <div class="stop-tags">
+            <span class="tag free">Free to explore</span>
+            <span class="tag food">🍷 Menú del día — 3 courses + wine ~€12–15</span>
+            <span class="tag teens">🛍️ Independent shops worth exploring</span>
+            <span class="tag tip">📍 Plaça del Sol — best outdoor lunch spot</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-time-col"><div class="stop-time">3:00 pm</div><span class="stop-node" style="color:var(--day3);"></span></div>
+      <div class="stop-card" style="color:var(--day3);">
+        <img src="YOUR_IMAGE_URL_HERE" alt="Montjuïc castle Barcelona panoramic views" style="width:100%;height:200px;object-fit:cover;display:block;">
+        <div class="stop-body">
+          <div class="stop-name">Montjuïc — Castle &amp; Gardens</div>
+          <div class="stop-type" style="color:var(--day3);">Hill · Castle · Gardens · Funicular from Paral·lel metro</div>
+          <p class="stop-desc">Take the metro to Paral·lel, then the funicular up to Montjuïc for the afternoon. The castle at the top has panoramic views across the city, the port, and the sea that are genuinely hard to beat anywhere in Barcelona. The terraced gardens below are beautifully kept — a good place to wander and decompress before the flamenco show. Leave by 6pm to freshen up and get to the tablao in time for the 7:15pm show.</p>
+          <div class="stop-tags">
+            <span class="tag tip">🚡 Funicular from Paral·lel metro (L2/L3)</span>
+            <span class="tag teens">🏰 Castle with 360° views over the city and sea</span>
+            <span class="tag tip">⏰ Leave by 6pm for flamenco prep</span>
+            <span class="tag free">Gardens free · Castle small entry fee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="optional-callout" style="max-width:900px;margin:0 auto 0;padding:14px 18px;">
+    <div class="optional-callout-icon">🎨</div>
+    <div>
+      <div class="optional-callout-title">Optional Add-On — Fundació Joan Miró</div>
+      <p class="optional-callout-text">If energy allows, the Fundació Joan Miró is right on Montjuïc — one of the finest modern art museums in Spain, in a stunning purpose-built building by architect Josep Lluís Sert. Allow 90 minutes. Book at <a href="https://www.fmirobcn.org/en/visit/tickets" target="_blank" style="color:var(--teal);font-weight:600;">fmirobcn.org →</a></p>
+    </div>
+  </div>
+
+  <div class="evening-card" style="margin-top:24px;">
+    <div class="evening-stripe" style="background:var(--day3);"></div>
+    <div class="evening-inner">
+      <div class="evening-icon">💃</div>
+      <div>
+        <div class="evening-eyebrow" style="color:#5BBF7A;">Monday Evening · 7:15pm</div>
+        <div class="evening-title">Flamenco at Tablao Cordobes — The Finale</div>
+        <p class="evening-desc">The perfect last night. Tablao Cordobes on La Rambla has operated since 1970 and was awarded best tablao in the world in 2025. The 7:15pm show runs 60–70 minutes in an intimate vaulted space of 180 seats — close enough to see every expression, hear every stomp without amplification. The show is entirely non-verbal so language is zero barrier. If you opt for the dinner package (buffet of 40+ Spanish dishes with unlimited drinks, eaten before the show from ~5:45pm), you get priority seating and one less thing to organise. Or arrive for the show with a complimentary drink included. Ages 4+ welcome. Book ahead — sells out in July.</p>
+        <p class="evening-note">Book at tablaocordobes.es · 7:15pm · Show only from ~€48 · With dinner from ~€84 · Ages 4+ ✓ · La Rambla, 35 · Non-verbal show ✓</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="optional-callout" style="max-width:900px;margin:8px auto 0;">
+    <div class="optional-callout-icon">🍷</div>
+    <div>
+      <div class="optional-callout-title">Optional — Pre-Flamenco Drinks in El Born</div>
+      <p class="optional-callout-text">If you skip the dinner package at the tablao, El Born is a 15-minute walk from La Rambla and has the best concentration of pintxos bars in the city. Carrer del Parlament and Carrer del Rec are both excellent for a pre-show drink and small plates — graze rather than sit down, very Barcelona.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICAL -->
+<section class="practical" id="practical">
+  <div class="practical-inner">
+    <h2 class="practical-title">Everything You Need to Know</h2>
+    <div class="practical-grid">
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🏠</div>
+        <div class="practical-card-title">Your Base</div>
+        <p>Aspasios City Oasis Apartments, 203 Carrer de Provença, Eixample. Check-in from 4pm July 18. Store luggage on arrival morning at <a href="https://stasher.com/luggage-storage/spain/barcelona/eixample" target="_blank">stasher.com/eixample →</a> (~€6–8 per bag). Staying all three nights — no packing up mid-trip.</p>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🚇</div>
+        <div class="practical-card-title">Getting Around</div>
+        <ul>
+          <li>Buy a T-Casual 10-trip metro card on arrival — saves time and money vs single tickets</li>
+          <li>Metro is fast, clean, frequent — best for crossing the city</li>
+          <li>Most stops within a neighbourhood are walkable</li>
+          <li>Taxi or Uber for Font Màgica return and late nights</li>
+          <li>Funicular from Paral·lel station for Montjuïc (Day 3)</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🎟️</div>
+        <div class="practical-card-title">Book Ahead</div>
+        <ul>
+          <li><a href="https://sagradafamilia.org/en/sagrada-familia-ticket" target="_blank">Sagrada Família →</a> — Book immediately</li>
+          <li><a href="https://parkguell.barcelona/en/plan-your-visit/tickets" target="_blank">Park Güell →</a> — No gate tickets sold</li>
+          <li><a href="https://museupicasso.bcn.cat/en/visit/tickets" target="_blank">Picasso Museum →</a> — Book ahead for July</li>
+          <li><a href="https://www.tablaocordobes.es/en/shows" target="_blank">Tablao Cordobes →</a> — 7:15pm July 20</li>
+          <li><a href="https://stasher.com/luggage-storage/spain/barcelona/eixample" target="_blank">Stasher luggage →</a> — July 18 morning</li>
+          <li><a href="https://www.fmirobcn.org/en/visit/tickets" target="_blank">Fundació Miró →</a> — Optional Day 3</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🌡️</div>
+        <div class="practical-card-title">Weather &amp; Packing</div>
+        <ul>
+          <li>July: 28–32°C, very sunny, virtually no rain</li>
+          <li>Light clothing throughout — evenings are warm</li>
+          <li>Comfortable walking shoes — lots of cobblestones</li>
+          <li>Swimwear and towel — Barceloneta on Day 1</li>
+          <li>Sun protection and water bottles</li>
+          <li>Smart casual for rooftop dinner and flamenco</li>
+          <li>Earphones for Sagrada Família audio guide</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">🍽️</div>
+        <div class="practical-card-title">Food Notes</div>
+        <ul>
+          <li>Breakfast: 8–10am — <em>pa amb tomàquet</em> and a cortado</li>
+          <li>Lunch: 2–3pm is peak — <em>menú del día</em> is exceptional value</li>
+          <li>Dinner: 9–10pm is normal in Barcelona — don't rush</li>
+          <li>Order <em>patatas bravas</em>, <em>croquetes</em> and <em>pan con tomate</em> everywhere</li>
+          <li>La Boqueria: go early, eat at the back stalls not the front</li>
+          <li>Santa Caterina: Bar Joan inside for tapas</li>
+          <li>Barceloneta: beachside restaurants for Day 1 seafood lunch</li>
+        </ul>
+      </div>
+
+      <div class="practical-card">
+        <div class="practical-card-icon">💡</div>
+        <div class="practical-card-title">Family Tips</div>
+        <ul>
+          <li>Flamenco: ages 4+ welcome, entirely non-verbal — no Spanish needed</li>
+          <li>Sagrada Família: download the app before you go, bring earphones</li>
+          <li>Park Güell: sunscreen essential — exposed hillside in July</li>
+          <li>Gothic Quarter: let the teens lead the wander — they'll love it</li>
+          <li>Late nights are normal here — don't fight the local rhythm</li>
+          <li>Tipping: not mandatory — €1–2 per person for good service is generous</li>
+          <li>Language: most Barcelona tourist areas have English speakers</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Monteverde &amp; Marquês &nbsp;·&nbsp; <strong>Barcelona Family Guide</strong> &nbsp;·&nbsp; July 18–20, 2026</p>
+  <p style="margin-top:8px;font-size:0.69rem;opacity:0.45;">All timings are approximate &nbsp;·&nbsp; Book all ticketed attractions in advance &nbsp;·&nbsp; Check official websites for schedule changes</p>
+</footer>
+
+</body>
+</html>
